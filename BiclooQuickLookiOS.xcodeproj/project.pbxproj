@@ -17,9 +17,11 @@
 		812F623924CAD868002CA76A /* Station.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F623824CAD868002CA76A /* Station.swift */; };
 		812F623B24CADBC8002CA76A /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F623A24CADBC8002CA76A /* Data.swift */; };
 		812F623E24CAE0B8002CA76A /* stations.json in Resources */ = {isa = PBXBuildFile; fileRef = 812F623D24CAE0B8002CA76A /* stations.json */; };
-		812F624024CAE182002CA76A /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F623F24CAE182002CA76A /* UserData.swift */; };
 		812F624224CAE446002CA76A /* StationList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F624124CAE446002CA76A /* StationList.swift */; };
 		812F624424CAEC5D002CA76A /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F624324CAEC5D002CA76A /* SearchBar.swift */; };
+		812F624624CB0F93002CA76A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 812F624524CB0F93002CA76A /* README.md */; };
+		812F624A24CB3354002CA76A /* StationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F624924CB3354002CA76A /* StationRow.swift */; };
+		812F625224CB386B002CA76A /* StoredStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F625124CB386B002CA76A /* StoredStation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,9 +37,11 @@
 		812F623824CAD868002CA76A /* Station.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Station.swift; sourceTree = "<group>"; };
 		812F623A24CADBC8002CA76A /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		812F623D24CAE0B8002CA76A /* stations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = stations.json; sourceTree = "<group>"; };
-		812F623F24CAE182002CA76A /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		812F624124CAE446002CA76A /* StationList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationList.swift; sourceTree = "<group>"; };
 		812F624324CAEC5D002CA76A /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		812F624524CB0F93002CA76A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		812F624924CB3354002CA76A /* StationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationRow.swift; sourceTree = "<group>"; };
+		812F625124CB386B002CA76A /* StoredStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredStation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +58,7 @@
 		812F621224CAD808002CA76A = {
 			isa = PBXGroup;
 			children = (
+				812F624524CB0F93002CA76A /* README.md */,
 				812F621D24CAD808002CA76A /* BiclooQuickLookiOS */,
 				812F621C24CAD808002CA76A /* Products */,
 			);
@@ -74,6 +79,7 @@
 				812F622024CAD808002CA76A /* SceneDelegate.swift */,
 				812F623524CAD829002CA76A /* Models */,
 				812F622524CAD808002CA76A /* ContentView.swift */,
+				812F624924CB3354002CA76A /* StationRow.swift */,
 				812F624124CAE446002CA76A /* StationList.swift */,
 				812F624324CAEC5D002CA76A /* SearchBar.swift */,
 				812F622724CAD80A002CA76A /* Assets.xcassets */,
@@ -99,7 +105,7 @@
 			children = (
 				812F623824CAD868002CA76A /* Station.swift */,
 				812F623A24CADBC8002CA76A /* Data.swift */,
-				812F623F24CAE182002CA76A /* UserData.swift */,
+				812F625124CB386B002CA76A /* StoredStation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -172,6 +178,7 @@
 			files = (
 				812F622E24CAD80A002CA76A /* LaunchScreen.storyboard in Resources */,
 				812F622B24CAD80A002CA76A /* Preview Assets.xcassets in Resources */,
+				812F624624CB0F93002CA76A /* README.md in Resources */,
 				812F623E24CAE0B8002CA76A /* stations.json in Resources */,
 				812F622824CAD80A002CA76A /* Assets.xcassets in Resources */,
 			);
@@ -187,10 +194,11 @@
 				812F621F24CAD808002CA76A /* AppDelegate.swift in Sources */,
 				812F623B24CADBC8002CA76A /* Data.swift in Sources */,
 				812F624224CAE446002CA76A /* StationList.swift in Sources */,
-				812F624024CAE182002CA76A /* UserData.swift in Sources */,
 				812F623924CAD868002CA76A /* Station.swift in Sources */,
 				812F624424CAEC5D002CA76A /* SearchBar.swift in Sources */,
 				812F622424CAD808002CA76A /* BiclooQuickLookiOS.xcdatamodeld in Sources */,
+				812F624A24CB3354002CA76A /* StationRow.swift in Sources */,
+				812F625224CB386B002CA76A /* StoredStation.swift in Sources */,
 				812F622624CAD808002CA76A /* ContentView.swift in Sources */,
 				812F622124CAD808002CA76A /* SceneDelegate.swift in Sources */,
 			);

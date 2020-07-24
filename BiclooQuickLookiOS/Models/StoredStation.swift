@@ -1,5 +1,5 @@
 //
-//  UserData.swift
+//  StoredStation.swift
 //  BiclooQuickLookiOS
 //
 //  Created by Pierre Lavalley on 24/07/2020.
@@ -7,8 +7,8 @@
 //
 
 import SwiftUI
-import Combine
+import CoreData
 
-final class UserData: ObservableObject {
-    @Published var stations = stationData
+class StoredStation: NSManagedObject {
+    
 }

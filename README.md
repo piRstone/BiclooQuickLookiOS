@@ -11,7 +11,7 @@ The interest is to not to have to open the application when you don't have the t
 
 ## Backlog
 
-[ ] Main application (add favorite stations, define favorite journey)
-[ ] Make Today Widget
-[ ] Make Apple Watch application
-[ ] Make iOS 14 home screen Widget 
+- [ ] Main application (add favorite stations, define favorite journey)
+- [ ] Make Today Widget
+- [ ] Make Apple Watch application
+- [ ] Make iOS 14 home screen Widget 
