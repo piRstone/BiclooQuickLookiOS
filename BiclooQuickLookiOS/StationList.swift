@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct StationList: View {
+    @Environment(\.managedObjectContext) var managedObjectContext
     @Binding var showStationList: Bool
     @State private var searchText: String = ""
     
@@ -18,7 +19,14 @@ struct StationList: View {
         storedStation.name = station.name
         storedStation.number = Int16(station.number)
         
-        try? AppDelegate.viewContext.save()
+        // Save station
+        do {
+            try self.managedObjectContext.save()
+        } catch {
+            print("Error while saving station: \(error)")
+        }
+        
+        // Close modal
         self.showStationList = false
     }
     
@@ -47,6 +55,6 @@ struct StationList: View {
 
 struct StationList_Previews: PreviewProvider {
     static var previews: some View {
-        StationList(showStationList: .constant(true))
+        StationList(showStationList: .constant(true)).environment(\.managedObjectContext, AppDelegate.viewContext)
     }
 }

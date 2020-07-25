@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
         entity: StoredStation.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \StoredStation.number, ascending: true)]
@@ -25,17 +26,31 @@ struct ContentView: View {
                 .padding()
         }
     }
+    
+    func deleteStation(at offsets: IndexSet) {
+        offsets.forEach { index in
+            let station = self.stations[index]
+            
+            self.managedObjectContext.delete(station)
+            
+//            try? AppDelegate.viewContext.save()
+            do {
+                try self.managedObjectContext.save()
+            } catch {
+                print("Error while saving after delete \(error)")
+            }
+        }
+    }
 
     var body: some View {
         NavigationView {
-//            Text("Ajoutez une station pour commencer")
-//                .foregroundColor(.gray)
             VStack {
                 if stations.count >= 0 {
                     List {
-                        ForEach(stations, id: \.number) {
-                            StationRow(station: $0)
+                        ForEach(stations, id: \.self) { station in
+                            Text(station.name ?? "")
                         }
+                    .onDelete(perform: deleteStation)
                     }
                 } else {
                     Text("Ajoutez une station pour commencer")
@@ -46,6 +61,7 @@ struct ContentView: View {
             .navigationBarItems(trailing: AddButton)
             .sheet(isPresented: $showStationList) {
                 StationList(showStationList: self.$showStationList)
+                    .environment(\.managedObjectContext, self.managedObjectContext)
             }
         }
     }
@@ -53,6 +69,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environment(\.managedObjectContext, AppDelegate.viewContext)
     }
 }
