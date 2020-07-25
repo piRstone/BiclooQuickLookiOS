@@ -12,7 +12,7 @@ struct StationRow: View {
     let station: Station
     
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             HStack {
                 Text(station.name)
                     .font(.headline)
@@ -21,23 +21,36 @@ struct StationRow: View {
                     .foregroundColor(.gray)
             }
             VStack(alignment: .leading) {
-                if station.available_bikes > 0 {
-                    Text("\(station.available_bikes) vélos disponibles")
-                        .foregroundColor(.green)
-                } else {
-                    Text("Aucun vélo disponible")
-                        .foregroundColor(.red)
+                HStack {
+                    if station.available_bikes > 0 {
+                        Image(systemName: "mappin")
+                            .foregroundColor(.green)
+                            .padding(.horizontal, 2)
+                        Text("\(station.available_bikes) vélos disponibles")
+                    } else {
+                        Image(systemName: "mappin")
+                            .foregroundColor(.red)
+                            .padding(.horizontal, 2)
+                        Text("Aucun vélo disponible")
+                    }
                 }
-                if station.available_bike_stands > 0 {
-                    Text("\(station.available_bike_stands) places disponibles")
-                        .foregroundColor(.green)
-                } else {
-                    Text("Aucune place disponible")
-                        .foregroundColor(.red)
+                HStack {
+                    if station.available_bike_stands > 0 {
+                        Image(systemName: "mappin")
+                            .foregroundColor(.green)
+                            .padding(.horizontal, 2)
+                        Text("\(station.available_bike_stands) places disponibles")
+                    } else {
+                        Image(systemName: "mappin")
+                            .foregroundColor(.red)
+                            .padding(.horizontal, 2)
+                        Text("Aucune place disponible")
+                    }
                 }
             }
             .padding(.top, 10)
         }
+        .padding()
     }
 }
 
