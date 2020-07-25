@@ -33,7 +33,6 @@ struct ContentView: View {
             
             self.managedObjectContext.delete(station)
             
-//            try? AppDelegate.viewContext.save()
             do {
                 try self.managedObjectContext.save()
             } catch {

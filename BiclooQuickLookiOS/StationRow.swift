@@ -9,19 +9,45 @@
 import SwiftUI
 
 struct StationRow: View {
-    let station: StoredStation
+    let station: Station
     
     var body: some View {
-        Text(station.name!)
+        VStack {
+            HStack {
+                Text(station.name)
+                    .font(.headline)
+                    .fontWeight(.bold)
+                Text("- \(station.number)")
+                    .foregroundColor(.gray)
+            }
+            VStack(alignment: .leading) {
+                if station.available_bikes > 0 {
+                    Text("\(station.available_bikes) vélos disponibles")
+                        .foregroundColor(.green)
+                } else {
+                    Text("Aucun vélo disponible")
+                        .foregroundColor(.red)
+                }
+                if station.available_bike_stands > 0 {
+                    Text("\(station.available_bike_stands) places disponibles")
+                        .foregroundColor(.green)
+                } else {
+                    Text("Aucune place disponible")
+                        .foregroundColor(.red)
+                }
+            }
+            .padding(.top, 10)
+        }
     }
 }
 
-//struct StationRow_Previews: PreviewProvider {
+struct StationRow_Previews: PreviewProvider {
 //    var station = StoredStation()
 //    station.name = "Picasso"
 //    station.number = 12
-//
-//    static var previews: some View {
-//        StationRow()
-//    }
-//}
+
+    static var previews: some View {
+        StationRow(station: stationData[0])
+            .previewLayout(.sizeThatFits)
+    }
+}
