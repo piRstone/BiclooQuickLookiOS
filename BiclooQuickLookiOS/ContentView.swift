@@ -8,28 +8,48 @@
 
 import SwiftUI
 
+struct Response: Codable {
+    var results: [Station]
+}
+
 struct ContentView: View {
     
     @Environment(\.managedObjectContext) var managedObjectContext
     @FetchRequest(
         entity: StoredStation.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \StoredStation.number, ascending: true)]
-    ) var stations: FetchedResults<StoredStation>
+    ) var favoriteStations: FetchedResults<StoredStation>
     
     @State var showStationList = false
+    @State private var stations = [Station]()
     
-    var AddButton: some View {
-        Button(action: { self.showStationList.toggle() }) {
-            Image(systemName: "plus")
-                .imageScale(.large)
-                .accessibility(label: Text("Ajouter une station"))
-                .padding()
+    func fetchStations() {
+        guard let JCDECAUX_API_KEY = ProcessInfo.processInfo.environment["JCDECAUX_API_KEY"] else {
+            fatalError("No JCDECAUX_API_KEY filled")
         }
+        guard let url = URL(string: "https://api.jcdecaux.com/vls/v1/stations?contract=nantes&apiKey=\(JCDECAUX_API_KEY)") else {
+            print("Invalid URL")
+            return
+        }
+
+        let request = URLRequest(url: url)
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let data = data {
+                if let decodedResponse = try? JSONDecoder().decode([Station].self, from: data) {
+                    DispatchQueue.main.async {
+                        self.stations = decodedResponse
+                    }
+                    return
+                }
+            }
+            
+            print("Fetch failed: \(error?.localizedDescription ?? "Unknown error")")
+        }.resume()
     }
     
     func deleteStation(at offsets: IndexSet) {
         offsets.forEach { index in
-            let station = self.stations[index]
+            let station = self.favoriteStations[index]
             
             self.managedObjectContext.delete(station)
             
@@ -40,14 +60,30 @@ struct ContentView: View {
             }
         }
     }
+    
+    var ReloadButton: some View {
+        Button(action: { self.fetchStations() }) {
+            Image(systemName: "gobackward")
+            .imageScale(.large)
+            .accessibility(label: Text("Rafraichir les stations"))
+        }
+    }
+    
+    var AddButton: some View {
+        Button(action: { self.showStationList.toggle() }) {
+            Image(systemName: "plus")
+                .imageScale(.large)
+                .accessibility(label: Text("Ajouter une station"))
+        }
+    }
 
     var body: some View {
         NavigationView {
             VStack {
-                if stations.count >= 0 {
+                if favoriteStations.count >= 0 {
                     List {
-                        ForEach(stations, id: \.self) { station in
-                            Text(station.name ?? "")
+                        ForEach(self.stations) { station in
+                            StationRow(station: station)
                         }
                     .onDelete(perform: deleteStation)
                     }
@@ -62,6 +98,13 @@ struct ContentView: View {
                 StationList(showStationList: self.$showStationList)
                     .environment(\.managedObjectContext, self.managedObjectContext)
             }
+            .onAppear(perform: {
+                // Request stations data
+                self.fetchStations()
+                
+                // Remove List dividers
+                UITableView.appearance().separatorStyle = .none
+            })
         }
     }
 }

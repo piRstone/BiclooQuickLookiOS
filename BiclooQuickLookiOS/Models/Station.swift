@@ -8,12 +8,12 @@
 
 import SwiftUI
 
-struct Position: Codable {
+struct Position: Hashable, Codable {
     var lat: Double
     var lng: Double
 }
 
-struct Station: Codable, Identifiable {
+struct Station: Hashable, Codable, Identifiable {
     var address: String
     var available_bike_stands: Int
     var available_bikes: Int
@@ -31,7 +31,7 @@ struct Station: Codable, Identifiable {
         number
     }
     
-    enum Status: String, Codable {
+    enum Status: String, Hashable, Codable {
         case open = "OPEN"
         case closed = "CLOSED"
     }

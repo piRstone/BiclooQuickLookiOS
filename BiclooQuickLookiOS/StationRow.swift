@@ -13,44 +13,45 @@ struct StationRow: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text(station.name)
-                    .font(.headline)
-                    .fontWeight(.bold)
-                Text("- \(station.number)")
-                    .foregroundColor(.gray)
-            }
             VStack(alignment: .leading) {
                 HStack {
-                    if station.available_bikes > 0 {
-                        Image(systemName: "mappin")
-                            .foregroundColor(.green)
-                            .padding(.horizontal, 2)
-                        Text("\(station.available_bikes) vélos disponibles")
-                    } else {
-                        Image(systemName: "mappin")
-                            .foregroundColor(.red)
-                            .padding(.horizontal, 2)
-                        Text("Aucun vélo disponible")
+                    Text(station.name)
+                        .font(.headline)
+                        .fontWeight(.bold)
+                    Text("- \(station.number)")
+                        .foregroundColor(.gray)
+                }
+                VStack(alignment: .leading) {
+                    HStack {
+                        if station.available_bikes > 0 {
+                            Text("🚲")
+                                .padding(.horizontal, 2)
+                            Text("\(station.available_bikes) vélos disponibles")
+                        } else {
+                            Text("🚲")
+                                .padding(.horizontal, 2)
+                            Text("Aucun vélo disponible")
+                        }
+                    }
+                    HStack {
+                        if station.available_bike_stands > 0 {
+                            Text("📍")
+                                .padding(.horizontal, 2)
+                            Text("\(station.available_bike_stands) places disponibles")
+                        } else {
+                            Text("📍")
+                                .padding(.horizontal, 2)
+                            Text("Aucune place disponible")
+                        }
                     }
                 }
-                HStack {
-                    if station.available_bike_stands > 0 {
-                        Image(systemName: "mappin")
-                            .foregroundColor(.green)
-                            .padding(.horizontal, 2)
-                        Text("\(station.available_bike_stands) places disponibles")
-                    } else {
-                        Image(systemName: "mappin")
-                            .foregroundColor(.red)
-                            .padding(.horizontal, 2)
-                        Text("Aucune place disponible")
-                    }
-                }
+                .padding(.top, 10)
             }
-            .padding(.top, 10)
+            .padding()
         }
-        .padding()
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
+        .background(Color(red: 0.95, green: 0.95, blue: 0.95, opacity: 1.0))
+        .cornerRadius(10)
     }
 }
 
