@@ -49,10 +49,16 @@ struct ContentView: View {
     
     func deleteStation(at offsets: IndexSet) {
         offsets.forEach { index in
-            let station = self.favoriteStations[index]
+            let station = self.stations[index]
             
-            self.managedObjectContext.delete(station)
+            var favStationIndex: Int {
+                self.favoriteStations.firstIndex(where: { $0.number == station.number })!
+            }
             
+            let favStation = self.favoriteStations[favStationIndex]
+
+            self.managedObjectContext.delete(favStation)
+
             do {
                 try self.managedObjectContext.save()
             } catch {
@@ -63,7 +69,7 @@ struct ContentView: View {
     
     var ReloadButton: some View {
         Button(action: { self.fetchStations() }) {
-            Image(systemName: "gobackward")
+            Image(systemName: "arrow.counterclockwise")
             .imageScale(.large)
             .accessibility(label: Text("Rafraichir les stations"))
         }
@@ -83,7 +89,9 @@ struct ContentView: View {
                 if favoriteStations.count >= 0 {
                     List {
                         ForEach(self.stations) { station in
-                            StationRow(station: station)
+                            if self.favoriteStations.firstIndex(where: { $0.number == station.id }) != nil {
+                                StationRow(station: station)
+                            }
                         }
                     .onDelete(perform: deleteStation)
                     }
@@ -93,9 +101,9 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitle(Text("Bicloo Quick Look"))
-            .navigationBarItems(trailing: AddButton)
+            .navigationBarItems(leading: ReloadButton, trailing: AddButton)
             .sheet(isPresented: $showStationList) {
-                StationList(showStationList: self.$showStationList)
+                StationList(showStationList: self.$showStationList, stations: self.stations)
                     .environment(\.managedObjectContext, self.managedObjectContext)
             }
             .onAppear(perform: {

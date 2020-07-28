@@ -12,6 +12,7 @@ struct StationList: View {
     @Environment(\.managedObjectContext) var managedObjectContext
     @Binding var showStationList: Bool
     @State private var searchText: String = ""
+    var stations: [Station]
     
     private func saveStation(_ station: Station) {
         print("Save station \(station.name)")
@@ -35,19 +36,19 @@ struct StationList: View {
             VStack {
                 SearchBar(text: $searchText, placeholder: "Rechercher")
                 List {
-                    ForEach(stationData.filter {
+                    ForEach(stations.filter {
                         self.searchText.isEmpty || $0.name.lowercased().contains(self.searchText.lowercased())
                     }) { station in
                         Text(station.name)
                             .onTapGesture {
                                 self.saveStation(station)
-                        }
+                            }
                     }
                 }
                 .navigationBarTitle(Text("Ajouter une station"), displayMode: .inline)
                 .navigationBarItems(trailing: Button(action: { self.showStationList = false }) {
                     Text("Annuler")
-            })
+                })
             }
         }
     }
@@ -55,6 +56,6 @@ struct StationList: View {
 
 struct StationList_Previews: PreviewProvider {
     static var previews: some View {
-        StationList(showStationList: .constant(true)).environment(\.managedObjectContext, AppDelegate.viewContext)
+        StationList(showStationList: .constant(true), stations: stationData).environment(\.managedObjectContext, AppDelegate.viewContext)
     }
 }
