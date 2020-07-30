@@ -20,6 +20,9 @@ struct StationRow: View {
                         .fontWeight(.bold)
                     Text("- \(station.number)")
                         .foregroundColor(.gray)
+//                    Spacer()
+//                    Image(systemName: "star.fill")
+//                        .foregroundColor(.yellow)
                 }
                 VStack(alignment: .leading) {
                     HStack {

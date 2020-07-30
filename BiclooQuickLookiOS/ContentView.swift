@@ -21,6 +21,7 @@ struct ContentView: View {
     ) var favoriteStations: FetchedResults<StoredStation>
     
     @State var showStationList = false
+    @State var showSettings = false
     @State private var stations = [Station]()
     
     func fetchStations() {
@@ -67,11 +68,11 @@ struct ContentView: View {
         }
     }
     
-    var ReloadButton: some View {
-        Button(action: { self.fetchStations() }) {
-            Image(systemName: "arrow.counterclockwise")
+    var SettingsButton: some View {
+        Button(action: { self.showSettings.toggle() }) {
+            Image(systemName: "gear")
             .imageScale(.large)
-            .accessibility(label: Text("Rafraichir les stations"))
+            .accessibility(label: Text("Paramètres"))
         }
     }
     
@@ -99,13 +100,20 @@ struct ContentView: View {
                     Text("Ajoutez une station pour commencer")
                         .foregroundColor(.gray)
                 }
+                Button(action: { self.fetchStations() }) {
+                    Text("Rafraichir")
+                }
             }
             .navigationBarTitle(Text("Bicloo Quick Look"))
-            .navigationBarItems(leading: ReloadButton, trailing: AddButton)
-            .sheet(isPresented: $showStationList) {
+            .navigationBarItems(leading: SettingsButton, trailing: AddButton)
+            .background(EmptyView().sheet(isPresented: $showStationList) {
                 StationList(showStationList: self.$showStationList, stations: self.stations)
                     .environment(\.managedObjectContext, self.managedObjectContext)
-            }
+            })
+            .background(EmptyView().sheet(isPresented: $showSettings) {
+                SettingsView(showSettings: self.$showSettings)
+                    .environment(\.managedObjectContext, self.managedObjectContext)
+            })
             .onAppear(perform: {
                 // Request stations data
                 self.fetchStations()
