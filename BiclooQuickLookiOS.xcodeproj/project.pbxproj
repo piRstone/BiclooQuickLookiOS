@@ -23,6 +23,7 @@
 		812F624A24CB3354002CA76A /* StationRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F624924CB3354002CA76A /* StationRow.swift */; };
 		812F625224CB386B002CA76A /* StoredStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812F625124CB386B002CA76A /* StoredStation.swift */; };
 		81774FFC24D2CE6F00177C5A /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81774FFB24D2CE6F00177C5A /* SettingsView.swift */; };
+		81774FFE24D3FE2500177C5A /* FavoriteJourneyRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81774FFD24D3FE2500177C5A /* FavoriteJourneyRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		812F624924CB3354002CA76A /* StationRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StationRow.swift; sourceTree = "<group>"; };
 		812F625124CB386B002CA76A /* StoredStation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoredStation.swift; sourceTree = "<group>"; };
 		81774FFB24D2CE6F00177C5A /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		81774FFD24D3FE2500177C5A /* FavoriteJourneyRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteJourneyRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				812F622024CAD808002CA76A /* SceneDelegate.swift */,
 				812F623524CAD829002CA76A /* Models */,
 				812F622524CAD808002CA76A /* ContentView.swift */,
+				81774FFD24D3FE2500177C5A /* FavoriteJourneyRow.swift */,
 				812F624924CB3354002CA76A /* StationRow.swift */,
 				812F624124CAE446002CA76A /* StationList.swift */,
 				812F624324CAEC5D002CA76A /* SearchBar.swift */,
@@ -201,6 +204,7 @@
 				812F624424CAEC5D002CA76A /* SearchBar.swift in Sources */,
 				812F622424CAD808002CA76A /* BiclooQuickLookiOS.xcdatamodeld in Sources */,
 				812F624A24CB3354002CA76A /* StationRow.swift in Sources */,
+				81774FFE24D3FE2500177C5A /* FavoriteJourneyRow.swift in Sources */,
 				812F625224CB386B002CA76A /* StoredStation.swift in Sources */,
 				812F622624CAD808002CA76A /* ContentView.swift in Sources */,
 				812F622124CAD808002CA76A /* SceneDelegate.swift in Sources */,

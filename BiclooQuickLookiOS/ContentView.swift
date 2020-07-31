@@ -19,6 +19,10 @@ struct ContentView: View {
         entity: StoredStation.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \StoredStation.number, ascending: true)]
     ) var favoriteStations: FetchedResults<StoredStation>
+    @FetchRequest(
+        entity: Settings.entity(),
+        sortDescriptors: []
+    ) var settings: FetchedResults<Settings>
     
     @State var showStationList = false
     @State var showSettings = false
@@ -68,6 +72,43 @@ struct ContentView: View {
         }
     }
     
+    func buildFavoriteJourney() -> some View {
+        let favBegId = settings[0].favBegStation
+        let favEndId = settings[0].favEndStation
+        let begIndex = self.stations.firstIndex(where: { $0.number == favBegId })
+        let endIndex = self.stations.firstIndex(where: { $0.number == favEndId })
+        
+        return VStack {
+            if  begIndex == nil || endIndex == nil {
+                FavoriteJourneyPlaceholder
+            } else {
+                VStack(alignment: .leading) {
+                    Text("Trajet préféré".uppercased())
+                        .font(.caption)
+                        .fontWeight(.bold)
+                        .foregroundColor(.gray)
+                        .padding(.leading)
+                    FavoriteJourneyRow(favBegStation: self.stations[begIndex ?? 0], favEndStation: self.stations[endIndex ?? 0])
+                        .padding(.horizontal)
+                }
+            }
+        }
+    }
+    
+    var FavoriteJourneyPlaceholder: some View {
+        VStack {
+            Text("Définissez vos stations favorites dans les paramètres pour afficher votre trajet préféré.")
+            .padding()
+            .foregroundColor(.gray)
+            .font(.caption)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.init(red: 0.8, green: 0.8, blue: 0.8), lineWidth: 1)
+            )
+        }
+        .padding()
+    }
+    
     var SettingsButton: some View {
         Button(action: { self.showSettings.toggle() }) {
             Image(systemName: "gear")
@@ -87,6 +128,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
+                if settings.count > 0 {
+                    buildFavoriteJourney()
+                }
                 if favoriteStations.count >= 0 {
                     List {
                         ForEach(self.stations) { station in
