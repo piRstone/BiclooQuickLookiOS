@@ -87,9 +87,7 @@ struct ContentView: View {
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.gray)
-                        .padding(.leading)
                     FavoriteJourneyRow(favBegStation: self.stations[begIndex ?? 0], favEndStation: self.stations[endIndex ?? 0])
-                        .padding(.horizontal)
                 }
             }
         }
@@ -106,7 +104,6 @@ struct ContentView: View {
                     .stroke(Color.init(red: 0.8, green: 0.8, blue: 0.8), lineWidth: 1)
             )
         }
-        .padding()
     }
     
     var SettingsButton: some View {
@@ -128,11 +125,11 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if settings.count > 0 {
-                    buildFavoriteJourney()
-                }
                 if favoriteStations.count >= 0 {
                     List {
+                        if settings.count > 0 {
+                            buildFavoriteJourney()
+                        }
                         ForEach(self.stations) { station in
                             if self.favoriteStations.firstIndex(where: { $0.number == station.id }) != nil {
                                 StationRow(station: station)
