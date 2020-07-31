@@ -12,13 +12,16 @@ struct FavoriteJourneyRow: View {
     let favBegStation: Station
     let favEndStation: Station
     
-    func getBackgroundColor() -> Color {
+    func getBackgroundColor() -> LinearGradient {
         if favBegStation.available_bikes == 0 || favEndStation.available_bike_stands == 0 {
-            return Color.red
+            // Journey not possible
+            return LinearGradient(gradient: Gradient(colors: [Color(red: 0.9, green: 0.2, blue: 0.3), Color(red: 0.9, green: 0.4, blue: 0.3)]), startPoint: .leading, endPoint: .trailing)
         } else if (favBegStation.available_bikes > 0 && favBegStation.available_bikes <= 2) || (favEndStation.available_bike_stands > 0 && favEndStation.available_bike_stands <= 2) {
-            return Color.orange
+            // Journey may not be possible
+            return LinearGradient(gradient: Gradient(colors: [Color(red: 1.0, green: 0.6, blue: 0.1), Color(red: 1.0, green: 0.8, blue: 0.0)]), startPoint: .leading, endPoint: .trailing)
         } else {
-            return Color.green
+            // Journey possible
+            return LinearGradient(gradient: Gradient(colors: [Color(red: 0.3, green: 0.7, blue: 0.2), Color(red: 0.7, green: 0.9, blue: 0.4)]), startPoint: .leading, endPoint: .trailing)
         }
     }
     
@@ -46,7 +49,7 @@ struct FavoriteJourneyRow: View {
                         .foregroundColor(.white)
                         .multilineTextAlignment(.center)
                         .lineLimit(nil)
-                    Text("📍 \(String(favEndStation.available_bikes))")
+                    Text("📍 \(String(favEndStation.available_bike_stands))")
                         .fontWeight(.bold)
                         .font(.system(size: 25))
                         .foregroundColor(.white)
@@ -68,7 +71,7 @@ struct FavoriteJourneyRow_Previews: PreviewProvider {
                 .previewDisplayName("Journey possible")
             FavoriteJourneyRow(favBegStation: stationData[67], favEndStation: stationData[36])
                 .previewLayout(.sizeThatFits)
-                .previewDisplayName("Journey maybe not possible")
+                .previewDisplayName("Journey may not be possible")
             FavoriteJourneyRow(favBegStation: stationData[20], favEndStation: stationData[87])
                 .previewLayout(.sizeThatFits)
                 .previewDisplayName("Journey not possible")

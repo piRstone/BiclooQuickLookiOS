@@ -83,7 +83,7 @@ struct ContentView: View {
                 FavoriteJourneyPlaceholder
             } else {
                 VStack(alignment: .leading) {
-                    Text("Trajet préféré".uppercased())
+                    Text("Mon trajet préféré".uppercased())
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.gray)
@@ -125,7 +125,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                if favoriteStations.count >= 0 {
+                if favoriteStations.count > 0 {
                     List {
                         if settings.count > 0 {
                             buildFavoriteJourney()
@@ -135,14 +135,14 @@ struct ContentView: View {
                                 StationRow(station: station)
                             }
                         }
-                    .onDelete(perform: deleteStation)
+                        .onDelete(perform: deleteStation)
+                    }
+                    Button(action: { self.fetchStations() }) {
+                        Text("Rafraichir")
                     }
                 } else {
                     Text("Ajoutez une station pour commencer")
                         .foregroundColor(.gray)
-                }
-                Button(action: { self.fetchStations() }) {
-                    Text("Rafraichir")
                 }
             }
             .navigationBarTitle(Text("Bicloo Quick Look"))

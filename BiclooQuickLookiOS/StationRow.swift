@@ -27,28 +27,34 @@ struct StationRow: View {
                 VStack(alignment: .leading) {
                     HStack {
                         if station.available_bikes > 0 {
-                            Text("🚲")
+                            Image(systemName: "circle.fill")
+                                .foregroundColor(.green)
                                 .padding(.horizontal, 2)
-                            Text("\(station.available_bikes) vélos disponibles")
+                            Text("\(station.available_bikes) vélo\(station.available_bikes > 1 ? "s" : "") disponible\(station.available_bikes > 1 ? "s" : "")")
                         } else {
-                            Text("🚲")
+                            Image(systemName: "circle.fill")
+                                .foregroundColor(.red)
                                 .padding(.horizontal, 2)
                             Text("Aucun vélo disponible")
+                                .foregroundColor(.red)
                         }
                     }
+                    .padding(.bottom, -5)
                     HStack {
                         if station.available_bike_stands > 0 {
-                            Text("📍")
+                            Image(systemName: "circle.fill")
+                                .foregroundColor(.green)
                                 .padding(.horizontal, 2)
-                            Text("\(station.available_bike_stands) places disponibles")
+                            Text("\(station.available_bike_stands) place\(station.available_bike_stands > 1 ? "s" : "") disponible\(station.available_bike_stands > 1 ? "s" : "")")
                         } else {
-                            Text("📍")
+                            Image(systemName: "circle.fill")
+                                .foregroundColor(.red)
                                 .padding(.horizontal, 2)
                             Text("Aucune place disponible")
+                                .foregroundColor(.red)
                         }
                     }
                 }
-                .padding(.top, 10)
             }
             .padding()
         }
